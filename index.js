@@ -28,6 +28,12 @@ $(document).keypress((event) => {
 });
 
 
+
+  
+
+
+
+
 //main behaviour
 let play = function(start,level){
     if(start){
@@ -46,6 +52,7 @@ for(let index = 0; index < blocks.length; index++) {
         stackStatus.push(blocks[index]);
         blockGlow(blocks[index]);
         if(correctBlockCheck(stackStatus,queue,clicks)){
+            blockSound(blocks[index]);
             if(clicks == queue.length-1){
                 clicks = -1;
                 stackStatus = [];
@@ -56,7 +63,13 @@ for(let index = 0; index < blocks.length; index++) {
         }
         else{
             lose = true;
-
+            //restarting the game
+            if(lose){
+                restart();
+                start = false;
+                lose = false;
+            }
+        
         }
         console.log(correctBlockCheck(stackStatus,queue,clicks));
        
@@ -111,8 +124,48 @@ let correctBlockCheck = function(block,queueBlock,clicks){
         
     }
 
+function restart(){
+    queue = []
+    stackStatus = []
+    level = 0;
+    clicks = -1;
+    header.text("YOU LOSE, BROOOO!");
+    $("body").css("backgroundColor","red");
+    wrongSound();
+    setTimeout(()=>{
+        header.text("Press any key to restart!");
+        $("body").css("backgroundColor","#011F3F");
+    },600);
+}
 
-    
+
+
+
+function blockSound(bloco){
+    let audio = new Audio("./sounds/red.mp3");
+    switch(bloco){
+        case blocks[0]:
+            audio.play();
+            break;
+        case blocks[1]:
+            audio = new Audio("./sounds/yellow.mp3");
+            audio.play();
+            break; 
+        case blocks[2]:
+            audio = new Audio("./sounds/blue.mp3");
+            audio.play();
+            break;
+        case blocks[3]:
+            audio = new Audio("./sounds/green.mp3");
+            audio.play();
+            break;                          
+    }
+}
+
+function wrongSound(){
+    let audio = new Audio("./sounds/wrong.mp3");
+    audio.play();
+}
     
 
 
