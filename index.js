@@ -19,7 +19,7 @@ let header = $("#level-title");
 
 
 //starting the game
-$(document).keypress((event) => {
+header.click((event) => {
     if(!start){
         start = true;
         play(start,level);
@@ -58,6 +58,7 @@ for(let index = 0; index < blocks.length; index++) {
                 stackStatus = [];
                 level++;
                 play(start,level);
+                showStart  = 0;
                 show(queue);
             }
         }
@@ -109,10 +110,13 @@ function blockGlow(block){
             },300);        
     };
 
+let showStart  = 0;
 function show(queue){
-    for (let i = 0; i < queue.length;){
-        blockGlow(queue[i]);
-        setTimeout(i++,1200);
+        blockGlow(queue[showStart]);
+        showStart++;
+        if( showStart < queue.lenght){
+            setTimeout( show( queue ), 2000);
+        }
     }
 }    
 
@@ -173,4 +177,3 @@ function wrongSound(){
 
 
     
-
