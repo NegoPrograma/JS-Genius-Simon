@@ -7,7 +7,14 @@ let blocks = [redBlock,yellowBlock,blueBlock,greenBlock];
 
 //adicionando o event
 for (let index = 0; index < blocks.length; index++) {
-    array[index].on("click",);
+    array[index].on("click", function (  ){
+    stackStatus.push($(this));
+    blockGlow($(this)); 
+    if( stackStatus[-1] != queue[-1])
+       reset( );
+    
+    
+    });
     
 }
 
@@ -19,11 +26,15 @@ let level = 0;
 let lose = false;
 let header = $("#level-title");
 $("body").on("keypress",(event) => {
-    // while(!(lose)){
-    //     level++;
-    //     header.text("level" + toString(level));
-    //     addBlock(queue);
-    // }
+ 
+      level++;
+      header.text("level" + toString(level));
+      
+      for(;lose!= true ;)
+      addBlock(queue, blocks);
+           if(queue[i] == stackStatus[i] && i == queue.lenght-1)
+                  level++;
+    
 
 });
 
@@ -43,6 +54,7 @@ let addBlock = function(queue,blocks){
             case 3:
                 queue.push(blocks[3]);
             }
+            blockGlow(queue[-1]);
         }
 
 let blockGlow = function(block){
@@ -61,11 +73,4 @@ let correctBlockCheck = function(block,queueBlock){
     
 }    
 
-let fill = function(originalStack,support){
-    for(let i = 0; i < originalStack.length;i++){
-        support.push(originalStack[i]);
-    }
-}
-
-    
 
