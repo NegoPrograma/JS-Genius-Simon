@@ -1,42 +1,75 @@
-//configurando os botões
+//setting the buttons
 let redBlock = $('#red');
 let yellowBlock = $('#yellow');
 let blueBlock = $('#blue');
 let greenBlock = $('#green');
 let blocks = [redBlock,yellowBlock,blueBlock,greenBlock];
 
-//adicionando o event
-for (let index = 0; index < blocks.length; index++) {
-    array[index].on("click", function (  ){
-    stackStatus.push($(this));
-    blockGlow($(this)); 
-    if( stackStatus[-1] != queue[-1])
-       reset( );
-    
-    
-    });
-    
-}
 
-
-
-let stack = [];
+//setting the queue 
+let queue = [];
 let stackStatus = [];
 let level = 0;
+let clicks = -1;
 let lose = false;
+let start = false;
 let header = $("#level-title");
-$("body").on("keypress",(event) => {
- 
-      level++;
-      header.text("level" + toString(level));
-      
-      for(;lose!= true ;)
-      addBlock(queue, blocks);
-           if(queue[i] == stackStatus[i] && i == queue.lenght-1)
-                  level++;
-    
 
+
+
+
+//starting the game
+$(document).keypress((event) => {
+    if(!start){
+        start = true;
+        play(start,level);
+        show(queue);
+    }
 });
+
+
+//main behaviour
+let play = function(start,level){
+    if(start){
+        if(!lose){
+            header.text("level " + level.toString());
+            addBlock(queue,blocks);
+        }
+    }
+
+};
+
+//adding the events
+for(let index = 0; index < blocks.length; index++) {
+    blocks[index].click((event) =>{
+        clicks++;
+        stackStatus.push(blocks[index]);
+        blockGlow(blocks[index]);
+        if(correctBlockCheck(stackStatus,queue,clicks)){
+            if(clicks == queue.length-1){
+                clicks = -1;
+                stackStatus = [];
+                level++;
+                play(start,level);
+                show(queue);
+            }
+        }
+        else{
+            lose = true;
+
+        }
+        console.log(correctBlockCheck(stackStatus,queue,clicks));
+       
+    });
+};
+
+
+
+
+
+
+
+//function declaration
 
 let addBlock = function(queue,blocks){
     let random;
@@ -54,23 +87,37 @@ let addBlock = function(queue,blocks){
             case 3:
                 queue.push(blocks[3]);
             }
-            blockGlow(queue[-1]);
-        }
+        };
 
-let blockGlow = function(block){
+function blockGlow(block){
             block.addClass("pressed");
             setTimeout(function(){
                 block.removeClass("pressed");
-            },450);        
+            },300);        
+    };
+
+function show(queue){
+    for (let i = 0; i < queue.length;){
+        blockGlow(queue[i]);
+        setTimeout(i++,1200);
+    }
+}    
+
+
+let correctBlockCheck = function(block,queueBlock,clicks){
+        if(block[clicks] != queueBlock[clicks])
+            return false;
+        return true;    
+        
     }
 
 
-let correctBlockCheck = function(block,queueBlock){
-    if(block == queueBlock)
-        return true;
-    else
-        return false;
     
-}    
+    
 
+
+
+
+
+    
 
