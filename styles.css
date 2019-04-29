@@ -41,6 +41,8 @@ body {
 
 .blue {
   background-color: blue;
+  position: relative;
+  bottom: 221px;
 }
 
 .yellow {

@@ -20,20 +20,15 @@ let body  = $("body");
 
 
 //starting the game
-$(document).on("click", ( )  => {
+$(document).on("keypress", () => {
      if(!start){
-        start = true;
-        play(start,level);
-        show(queue,0);
-        }
-        
-       });
+            start = true;
+            play(start,level);
+            show(queue,0);
+        };
+    });
      
        
-    
-
-
-
   
 
 
@@ -43,7 +38,7 @@ $(document).on("click", ( )  => {
 let play = function(start,level){
     if(start){
         if(!lose){
-            header.text("level " + level.toString());
+            header.text("level " + (level+1).toString());
             addBlock(queue,blocks);
         }
     }
@@ -58,13 +53,15 @@ for(let index = 0; index < blocks.length; index++) {
         blockGlow(blocks[index]);
         if(correctBlockCheck(stackStatus,queue,clicks)){
             blockSound(blocks[index]);
-            if(clicks == queue.length-1){
-                clicks = -1;
-                stackStatus = [];
-                level++;
-                play(start,level);
-                show(queue,0);
-            }
+            setTimeout(()=>{
+                        if(clicks == queue.length-1){
+                        clicks = -1;
+                        stackStatus = [];
+                        level++;
+                        play(start,level);
+                        show(queue,0);
+                    };
+            },1000);
         }
         else{
             lose = true;
@@ -111,16 +108,17 @@ function blockGlow(block){
             block.addClass("pressed");
             setTimeout(function(){
                 block.removeClass("pressed");
-            },300);        
+            },300);
+        };
 
 
 function show(queue,i){
      if(i < queue.length){
-        blockGlow(queue[i]);
-        setTimeout(function( ){
-        show(queue,i+1);
-        }, i*1000);
-         }
+            blockGlow(queue[i]);
+            setTimeout(function( ){
+                show(queue,i+1);
+            },800);
+    }
 }    
 
 
@@ -132,8 +130,8 @@ let correctBlockCheck = function(block,queueBlock,clicks){
     }
 
 function restart(){
-    queue = []
-    stackStatus = []
+    queue = [];
+    stackStatus = [];
     level = 0;
     clicks = -1;
     header.text("YOU LOSE, BROOOO!");
@@ -173,10 +171,3 @@ function wrongSound(){
     let audio = new Audio("./sounds/wrong.mp3");
     audio.play();
 }
-    
-
-
-
-
-
-    
