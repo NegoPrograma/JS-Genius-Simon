@@ -19,7 +19,7 @@ let body  = $("body");
 
 
 
-//starting the game
+//starting the game by keyboard or click
 $(document).on("keypress", () => {
      if(!start){
             start = true;
@@ -27,6 +27,14 @@ $(document).on("keypress", () => {
             show(queue,0);
         };
     });
+
+$(document).on("click", () => {
+    if(!start){
+            start = true;
+            play(start,level);
+            show(queue,0);
+        };
+    });    
      
        
   
