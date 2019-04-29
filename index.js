@@ -155,6 +155,24 @@ function restart(){
         $("body").css("backgroundColor","#011F3F");
         recordHeader.text("recorde:" + record.toString());
     },600);
+    if(!check()){
+        $(body).on("keypress", () => {
+            if(!start){
+                    start = true;
+                    play(start,level);
+                    show(queue,0);
+                }
+            });
+    }
+    else{
+        $(body).on("click", () => {
+            if(!start){
+                    start = true;
+                    play(start,level);
+                    show(queue,0);
+                }
+            });  
+    }
 }
 
 
