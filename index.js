@@ -12,19 +12,19 @@ let stackStatus = [];
 let level = 0;
 let clicks = -1;
 let lose = false;
-let showStart  = 0;
 let start = false;
 let header = $("#level-title");
+let body  = $("body");
 
 
 
 
 //starting the game
-$(document).click( function( ){
+body.on("click", ( )  => {
         start = true;
         play(start,level);
         show(queue);
-        };)
+        });
     
 
 
@@ -58,7 +58,6 @@ for(let index = 0; index < blocks.length; index++) {
                 stackStatus = [];
                 level++;
                 play(start,level);
-                showStart  = 0;
                 show(queue);
             }
         }
