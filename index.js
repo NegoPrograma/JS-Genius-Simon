@@ -4,17 +4,20 @@ let yellowBlock = $('#yellow');
 let blueBlock = $('#blue');
 let greenBlock = $('#green');
 let blocks = [redBlock,yellowBlock,blueBlock,greenBlock];
+let header = $("#level-title");
+let body  = $("body");
+let recordHeader = $(".record");
 
-
-//setting the queue 
+//setting the queue and player attributes
 let queue = [];
 let stackStatus = [];
 let level = 0;
 let clicks = -1;
 let lose = false;
 let start = false;
-let header = $("#level-title");
-let body  = $("body");
+let record = 0;
+
+
 
 
 
@@ -69,7 +72,7 @@ for(let index = 0; index < blocks.length; index++) {
                         play(start,level);
                         show(queue,0);
                     };
-            },1000);
+            },1250);
         }
         else{
             lose = true;
@@ -140,14 +143,17 @@ let correctBlockCheck = function(block,queueBlock,clicks){
 function restart(){
     queue = [];
     stackStatus = [];
-    level = 0;
     clicks = -1;
+    if(level > record)
+        record = level+1;
+    level = 0;        
     header.text("YOU LOSE, BROOOO!");
     $("body").css("backgroundColor","red");
     wrongSound();
     setTimeout(()=>{
         header.text("Press any key(or click) to restart!");
         $("body").css("backgroundColor","#011F3F");
+        recordHeader.text("recorde:" + record.toString());
     },600);
 }
 
