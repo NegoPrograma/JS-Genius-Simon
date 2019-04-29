@@ -26,7 +26,7 @@ $(document).on("keypress", ( )  => {
         play(start,level);
         show(queue);
         });
-       } 
+       });
     
 
 
