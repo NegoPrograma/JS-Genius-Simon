@@ -146,7 +146,7 @@ function restart(){
     $("body").css("backgroundColor","red");
     wrongSound();
     setTimeout(()=>{
-        header.text("Press any key to restart!");
+        header.text("Press any key(or click) to restart!");
         $("body").css("backgroundColor","#011F3F");
     },600);
 }
