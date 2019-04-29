@@ -112,12 +112,15 @@ function blockGlow(block){
             setTimeout(function(){
                 block.removeClass("pressed");
             },300);        
-    };
 
 
 function show(queue){
-   for( let i  = 0; i < queue.length;i++)
+   for( let i  = 0; i < queue.length;){
         blockGlow(queue[i]);
+        setTimeout(function( ){
+        i++;
+        }, 450);
+        }
 }    
 
 
