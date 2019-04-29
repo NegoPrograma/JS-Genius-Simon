@@ -25,8 +25,11 @@ $(document).on("keypress", ( )  => {
         start = true;
         play(start,level);
         show(queue);
-        });
+        }
+        
        });
+     
+       
     
 
 
