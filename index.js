@@ -12,6 +12,7 @@ let stackStatus = [];
 let level = 0;
 let clicks = -1;
 let lose = false;
+let showStart  = 0;
 let start = false;
 let header = $("#level-title");
 
@@ -19,13 +20,12 @@ let header = $("#level-title");
 
 
 //starting the game
-header.click((event) => {
-    if(!start){
+$(document).click( function( ){
         start = true;
         play(start,level);
         show(queue);
-    }
-});
+        };)
+    
 
 
 
@@ -110,14 +110,10 @@ function blockGlow(block){
             },300);        
     };
 
-let showStart  = 0;
+
 function show(queue){
-        blockGlow(queue[showStart]);
-        showStart++;
-        if( showStart < queue.lenght){
-            setTimeout( show( queue ), 2000);
-        }
-    }
+   for( let i  = 0; i < queue.length;i++)
+        blockGlow(queue[i]);
 }    
 
 
