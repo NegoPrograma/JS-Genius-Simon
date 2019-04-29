@@ -20,11 +20,11 @@ let body  = $("body");
 
 
 //starting the game
-$(document).on("keypress", ( )  => {
+$(document).on("click", ( )  => {
      if(!start){
         start = true;
         play(start,level);
-        show(queue);
+        show(queue,0);
         }
         
        });
@@ -63,7 +63,7 @@ for(let index = 0; index < blocks.length; index++) {
                 stackStatus = [];
                 level++;
                 play(start,level);
-                show(queue);
+                show(queue,0);
             }
         }
         else{
@@ -114,13 +114,13 @@ function blockGlow(block){
             },300);        
 
 
-function show(queue){
-   for( let i  = 0; i < queue.length;){
+function show(queue,i){
+     if(i < queue.length){
         blockGlow(queue[i]);
         setTimeout(function( ){
-        i++;
-        }, 450);
-        }
+        show(queue,i+1);
+        }, i*1000);
+         }
 }    
 
 
