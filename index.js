@@ -20,11 +20,13 @@ let body  = $("body");
 
 
 //starting the game
-body.on("click", ( )  => {
+$(document).on("keypress", ( )  => {
+     if(!start){
         start = true;
         play(start,level);
         show(queue);
         });
+       } 
     
 
 
